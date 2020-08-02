@@ -7,15 +7,16 @@ Options Parser::parseArgs(int argc, const char* argv[])
 	namespace fs = std::filesystem;
 
 	Options options;
+	std::error_code ec;
 
 	for (int i = 1; i < argc; ++i) 
 	{
 		fs::path argument = argv[i];
 
-		if (fs::is_directory(argument)) {
+		if (fs::is_directory(argument, ec)) {
 			options.dirs.insert(argument);
 		}
-		else if (fs::is_regular_file(argument)) {
+		else if (fs::is_regular_file(argument, ec)) {
 			options.files.insert(argument);
 		}
 		else if (argv[i][0] == '.') {
@@ -50,7 +51,7 @@ void Parser::pasteComments(Options&& options)
 		{
 			for (auto& file : fs::recursive_directory_iterator(directory))
 			{
-				if (file.is_regular_file())
+				if (file.is_regular_file() && options == file.path().extension())
 				{
 					pasteIntoFile(file.path(), options.comments);
 				}
