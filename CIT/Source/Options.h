@@ -13,8 +13,7 @@ struct Options
 	bool bIsAllFiles = false;
 	bool bIsRecursive = false;
 
-	// check if we have this extension
-	bool operator==(const std::filesystem::path& extension) const
+	bool checkExtension(const std::filesystem::path& extension) const
 	{
 		// if we check all the files we don't care about particular extension
 		if (bIsAllFiles)
@@ -29,4 +28,37 @@ struct Options
 
 		return false;
 	}
+
+	bool checkFile(const std::filesystem::path& file) const
+	{
+		// if we check all the files we don't care about particular extension
+		if (bIsAllFiles)
+		{
+			return true;
+		}
+		// try to find file in the set
+		else if (auto found = files.find(file); found != files.end())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	// check if we have this extension
+	//bool operator==(const std::filesystem::path& extension) const
+	//{
+	//	// if we check all the files we don't care about particular extension
+	//	if (bIsAllFiles)
+	//	{
+	//		return true;
+	//	}
+	//	// try to find extension in the set
+	//	else if (auto found = extensions.find(extension); found != extensions.end())
+	//	{
+	//		return true;
+	//	}
+
+	//	return false;
+	//}
 };

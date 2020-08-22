@@ -9,7 +9,7 @@ Options Parser::parseArgs(int argc, const char* argv[])
 	Options options;
 	std::error_code ec;
 
-	for (int i = 1; i < argc; ++i) 
+	for (int i = 1; i < argc; ++i)
 	{
 		fs::path argument = argv[i];
 
@@ -37,6 +37,12 @@ Options Parser::parseArgs(int argc, const char* argv[])
 
 	}
 
+	// if there are no directory in arguments -> add current directory to the directories
+	if (options.dirs.empty())
+	{
+		options.dirs.insert(std::filesystem::path{ "./" });
+	}
+
 	return options;
 }
 
@@ -51,7 +57,7 @@ void Parser::pasteComments(Options&& options)
 		{
 			for (auto& file : fs::recursive_directory_iterator(directory))
 			{
-				if (file.is_regular_file() && options == file.path().extension())
+				if (file.is_regular_file() && options.checkExtension(file.path().extension()) and not options.checkFile(file.path()))
 				{
 					pasteIntoFile(file.path(), options.comments);
 				}
@@ -64,12 +70,18 @@ void Parser::pasteComments(Options&& options)
 		{
 			for (auto& file : fs::directory_iterator(directory))
 			{
-				if (file.is_regular_file() && options == file.path().extension())
+				if (file.is_regular_file() && options.checkExtension(file.path().extension()) and not options.checkFile(file.path()))
 				{
 					pasteIntoFile(file, options.comments);
 				}
 			}
 		}
+	}
+
+	// lastly put comments into all exact mention files
+	for (auto& file : options.files)
+	{
+		pasteIntoFile(file, options.comments);
 	}
 }
 
