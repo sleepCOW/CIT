@@ -12,18 +12,19 @@
 ## 1. Download executable for Windows
 Use this links:
 > [**x64 version**](https://sourceforge.net/projects/commentinserttool/files/CIT_x64.rar/download)  
-> [**x32 version**](https://sourceforge.net/projects/commentinserttool/files/CIT_x32.rar/download)
-<pre>You can add path to your exectuable to PATH variables for conviency</pre>
+> [**x32 version**](https://sourceforge.net/projects/commentinserttool/files/CIT_x32.rar/download)  
+<pre>
+You can add path to your exectuable to PATH variables for conviency</pre>
 
 ## 2. Build sources
 **Build using Visual Studio**
-1. Clone or download project
-2. Launch .sln file (Visual studio solution)
-3. Make sure **C++17** is enabled `Project->Properties->Configuration Properties->General->C++ Language Standard`
-4. Ctrl + Shift + B to Build or  `Build->Build Solution`
+1. Clone or download project  
+2. Launch .sln file (Visual studio solution)  
+3. Make sure **C++17** is enabled `Project->Properties->Configuration Properties->General->C++ Language Standard`  
+4. Ctrl + Shift + B to Build or  `Build->Build Solution`  
 
-**Build from source**
-Coming soon...
+**Build from source**  
+Coming soon...  
   
 
 # Usage
