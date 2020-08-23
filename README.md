@@ -47,8 +47,36 @@ Second line
 </pre>
 
 ## Work with directories
+*Cit allows you to enter directories where lookup for files will be performed*  
+**Note! If no directory entered current directory will be automatically added to search directories**
+<pre>
+CIT path1 path2 ...
+</pre>
+**Examples**
+<pre>
+PS F:\PetProjects\CIT_Release> CIT ./ ./folder .cpp "First line" "Second line"
+</pre>
+
+You can add `-r` options to make recursive search within all given directories
+<pre>
+PS F:\PetProjects\CIT_Release> CIT ./ -r .cpp .h "First line" "Second line"
+</pre>
+> CIT will scan "./" folder and all directories that "./" contain
 
 ## Work with exact extensions
+*You can specify what extension to use*
+<pre>
+CIT ./ .extension1 .extension2 "comment"
+</pre>
+**Examples**
+<pre>
+PS F:\PetProjects\CIT_Release> CIT ./ .cpp .h "First line" "Second line"
+</pre>
+
+You can add `-a` options to add comments to any found files in the directory(all extension)
+<pre>
+PS F:\PetProjects\CIT_Release> CIT ./ -a "First line" "Second line"
+</pre>  
 
 # Contact me
 *In case of any problems feel free to contact me or create an issue*  
