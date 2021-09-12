@@ -7,6 +7,7 @@ Options Parser::parseArgs(int argc, const char* argv[])
 	namespace fs = std::filesystem;
 
 	Options options;
+	bool bExplicit = false;
 	std::error_code ec;
 
 	for (int i = 1; i < argc; ++i)
@@ -30,15 +31,19 @@ Options Parser::parseArgs(int argc, const char* argv[])
 		{
 			options.bIsRecursive = true;
 		}
+		// Explicit flag prevents explicit adding of current directory
+		else if (strcmp(argv[i], "-e") == 0)
+		{
+			bExplicit = true;
+		}
 		else
 		{
 			options.comments.push_back(argv[i]);
 		}
-
 	}
 
 	// if there are no directory in arguments -> add current directory to the directories
-	if (options.dirs.empty())
+	if (!bExplicit && options.dirs.empty())
 	{
 		options.dirs.insert(std::filesystem::path{ "./" });
 	}
@@ -92,6 +97,16 @@ void Parser::pasteIntoFile(const std::filesystem::path& path, const std::vector<
 	std::string fileContent((std::istreambuf_iterator<char>(infile)),
 							 std::istreambuf_iterator<char>());
 	infile.close();
+
+	// Verify we don't have any similar comments on top of the file
+	for (std::string_view comment : comments)
+	{
+		std::string_view file_line(fileContent.data(), comment.size());
+		if (comment == file_line)
+		{
+			return;
+		}
+	}
 
 	// open file for write
 	std::ofstream ofile(path, std::ios_base::out);
