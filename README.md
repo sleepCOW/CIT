@@ -14,7 +14,7 @@ Use this links:
 > [**x64 version**](https://sourceforge.net/projects/commentinserttool/files/CIT_x32_v0.1.zip/download)  
 > [**x32 version**](https://sourceforge.net/projects/commentinserttool/files/CIT_x64_v0.1.zip/download)  
 <pre>
-You can add path to your exectuable to PATH variables for conviency</pre>
+You can add path to your executable to PATH variables for convenience</pre>
 
 ## 2. Build sources
 **Build using Visual Studio**
